@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    @page { size: 4in 6in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 4in;
+      height: 6in;
+      font-family: sans-serif;
+      background: #fff;
+      color: #000;
+    }
+    .label {
+      width: 4in;
+      height: 6in;
+      padding: 0.2in;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1in;
+    }
+    .store-name {
+      font-size: 22pt;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+    .flavor {
+      font-size: 16pt;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .unit-count {
+      font-size: 20pt;
+      font-weight: 800;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #000;
+      margin: 0.05in 0;
+    }
+    .qr-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.1in;
+    }
+    .meta {
+      font-size: 7pt;
+      font-family: monospace;
+      color: #555;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">
+    <div class="store-name">{{storeName}}</div>
+    <div class="flavor">{{flavor}}</div>
+    <div class="unit-count">{{unitCount}} units</div>
+    <hr />
+    <div class="qr-row">
+      <canvas id="qrcode"></canvas>
+    </div>
+    <div class="meta">
+      <div>CASE: {{caseId}}</div>
+      <div>COOK ITEM: {{cookItemId}}</div>
+      <div>ORDER: {{orderId}}</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    QRCode.toCanvas(
+      document.getElementById("qrcode"),
+      '{{qrData}}',
+      { width: 160, margin: 1, color: { dark: "#000000", light: "#ffffff" } },
+      function (err) { if (err) console.error(err); }
+    );
+  </script>
+</body>
+</html>

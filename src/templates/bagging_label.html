@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    @page { size: 4in 2in; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 4in;
+      height: 2in;
+      font-family: sans-serif;
+      background: #fff;
+      color: #000;
+      overflow: hidden;
+    }
+    .label {
+      width: 4in;
+      height: 2in;
+      padding: 0.1in;
+      display: flex;
+      flex-direction: column;
+      gap: 0.02in;
+      border: 1px solid #ccc;
+      overflow: hidden;
+    }
+    .store-name {
+      font-size: 12pt;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #000;
+      margin: 0.05in 0;
+    }
+    .primary {
+      font-size: 9pt;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .secondary {
+      font-size: 7pt;
+      font-weight: 500;
+      line-height: 1.4;
+      font-family: monospace;
+    }
+    .barcode-row {
+      display: flex;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    svg.barcode {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="label">
+    <div class="store-name">{{storeName}}</div>
+    <hr />
+    <div class="primary">
+      FLAVOR: {{flavor}} &nbsp;|&nbsp; COUNT: ~{{quantity}} &nbsp;|&nbsp; {{productType}}
+    </div>
+    <div class="secondary">
+      <div>COOK ITEM: {{cookItemId}} &nbsp; ORDER: {{orderId}}</div>
+      <div>BAGGED: {{baggedDate}} {{baggedTime}}</div>
+      {{moldList}}
+      {{trayList}}
+      {{flavorFormulation}}
+      {{colorFormulation}}
+    </div>
+    <div class="barcode-row">
+      <svg class="barcode" id="barcode"></svg>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+  <script>
+    JsBarcode("#barcode", "{{cookItemId}}", {
+      format: "CODE128",
+      width: 1.4,
+      height: 30,
+      displayValue: true,
+      fontSize: 7,
+      margin: 1,
+      background: "#ffffff",
+      lineColor: "#000000",
+    });
+  </script>
+</body>
+</html>

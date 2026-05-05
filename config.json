@@ -1,0 +1,11 @@
+{
+  "port": 5050,
+  "printers": {
+    "bagging_label": "YOUR_BAGGING_PRINTER_NAME",
+    "case_label": "YOUR_CASE_PRINTER_NAME"
+  },
+  "labelSizes": {
+    "bagging_label": { "width": "4in", "height": "2in" },
+    "case_label":    { "width": "4in", "height": "6in" }
+  }
+}
