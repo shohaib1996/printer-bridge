@@ -4,16 +4,17 @@
   "description": "Local Windows print bridge for Better Edibles PPS tablet printing",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "build": "node init && tsc && xcopy /E /I /Y src\\templates dist\\templates",
+    "start": "node init && node dist/index.js",
+    "dev": "node init && ts-node src/index.ts"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "bwip-js": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
     "pdfkit": "^0.15.0",
-    "bwip-js": "^4.2.0",
     "qrcode": "^1.5.3",
     "uuid": "^11.0.0"
   },

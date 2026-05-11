@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <style>
-    @page { size: 4in 2in; margin: 0; }
+    @page { size: 4in 6in; margin: 0; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       width: 4in;
-      height: 2in;
+      height: 6in;
       font-family: sans-serif;
       background: #fff;
       color: #000;
@@ -15,16 +15,26 @@
     }
     .label {
       width: 4in;
-      height: 2in;
-      padding: 0.1in;
+      height: 6in;
+      padding: 0.2in;
       display: flex;
       flex-direction: column;
-      gap: 0.02in;
-      border: 1px solid #ccc;
+      gap: 0.08in;
       overflow: hidden;
     }
+    .stage-badge {
+      font-size: 8pt;
+      font-weight: 700;
+      background: #000;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 2px;
+      display: inline-block;
+      align-self: flex-start;
+      letter-spacing: 0.03em;
+    }
     .store-name {
-      font-size: 12pt;
+      font-size: 20pt;
       font-weight: 900;
       line-height: 1.1;
       text-transform: uppercase;
@@ -33,24 +43,30 @@
     }
     hr {
       border: none;
-      border-top: 1px solid #000;
-      margin: 0.05in 0;
+      border-top: 2px solid #000;
+      margin: 0.06in 0;
     }
-    .primary {
-      font-size: 9pt;
+    .flavor-row {
+      font-size: 16pt;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .meta-row {
+      font-size: 11pt;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.3;
     }
-    .secondary {
-      font-size: 7pt;
+    .detail-block {
+      font-size: 9pt;
       font-weight: 500;
-      line-height: 1.4;
+      line-height: 1.6;
       font-family: monospace;
     }
     .barcode-row {
       display: flex;
       justify-content: center;
-      flex-shrink: 0;
+      margin-top: auto;
+      padding-top: 0.1in;
     }
     svg.barcode {
       display: block;
@@ -59,18 +75,20 @@
 </head>
 <body>
   <div class="label">
+    <div class="stage-badge">STAGE 3 — BAGGING</div>
     <div class="store-name">{{storeName}}</div>
     <hr />
-    <div class="primary">
-      FLAVOR: {{flavor}} &nbsp;|&nbsp; COUNT: ~{{quantity}} &nbsp;|&nbsp; {{productType}}
-    </div>
-    <div class="secondary">
-      <div>COOK ITEM: {{cookItemId}} &nbsp; ORDER: {{orderId}}</div>
+    <div class="flavor-row">{{flavor}}</div>
+    <div class="meta-row">COUNT: ~{{quantity}} &nbsp;|&nbsp; {{productType}}</div>
+    <hr />
+    <div class="detail-block">
+      <div>COOK ITEM: {{cookItemId}}</div>
+      <div>ORDER: {{orderId}}</div>
       <div>BAGGED: {{baggedDate}} {{baggedTime}}</div>
-      {{moldList}}
-      {{trayList}}
-      {{flavorFormulation}}
-      {{colorFormulation}}
+      <div>{{moldList}}</div>
+      <div>{{trayList}}</div>
+      <div>{{flavorFormulation}}</div>
+      <div>{{colorFormulation}}</div>
     </div>
     <div class="barcode-row">
       <svg class="barcode" id="barcode"></svg>
@@ -81,11 +99,11 @@
   <script>
     JsBarcode("#barcode", "{{cookItemId}}", {
       format: "CODE128",
-      width: 1.4,
-      height: 30,
+      width: 2,
+      height: 70,
       displayValue: true,
-      fontSize: 7,
-      margin: 1,
+      fontSize: 10,
+      margin: 4,
       background: "#ffffff",
       lineColor: "#000000",
     });

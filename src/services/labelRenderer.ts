@@ -73,6 +73,24 @@ function buildTemplateData(labelType: string, data: Record<string, any>): Record
     };
   }
 
+  if (labelType === "tray_label") {
+    const loadedAt = data.loadTimestamp || new Date().toISOString();
+    return {
+      storeName: data.storeName ?? "",
+      flavor: data.flavor ?? "",
+      quantity: String(data.quantity ?? ""),
+      productType: (data.productType ?? "BIOMAX").toUpperCase(),
+      trayId: data.trayId ?? "",
+      moldId: data.moldId ?? "",
+      dehydratorUnitId: data.dehydratorUnitId ?? "",
+      shelfPosition: String(data.shelfPosition ?? ""),
+      cookItemId: data.cookItemId ?? "",
+      orderId: data.orderId ?? "",
+      loadedDate: formatLabelDate(loadedAt),
+      loadedTime: formatLabelTime(loadedAt),
+    };
+  }
+
   if (labelType === "case_label") {
     return {
       storeName: data.storeName ?? "",
@@ -103,8 +121,26 @@ export async function renderLabel(
 
   console.log(`[renderer] Launching Puppeteer for "${labelType}"...`);
 
+  // Try puppeteer's auto path first, fall back to known Windows cache location
+  let chromePath: string;
+  try {
+    chromePath = puppeteer.executablePath();
+  } catch {
+    chromePath = `C:\\Users\\${process.env.USERNAME}\\AppData\\Local\\ms-playwright\\chromium-1091\\chrome-win\\chrome.exe`;
+  }
+
+  // Known working path from Puppeteer cache
+  const fallbackPath = `C:\\Users\\${process.env.USERNAME}\\.cache\\puppeteer\\chrome\\win64-121.0.6167.85\\chrome-win64\\chrome.exe`;
+  const fs2 = await import("fs");
+  if (!fs2.existsSync(chromePath)) {
+    chromePath = fallbackPath;
+  }
+
+  console.log(`[renderer] Chrome path: ${chromePath}`);
+
   const browser = await puppeteer.launch({
     headless: true,
+    executablePath: chromePath,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 

@@ -5,8 +5,8 @@ import path from "path";
 
 const execAsync = promisify(exec);
 
-// process.cwd() = project root regardless of ts-node or compiled dist
-const PREVIEW_DIR = path.join(process.cwd(), "preview");
+// __dirname = dist/services/, so ../../ = project root
+const PREVIEW_DIR = path.join(__dirname, "..", "..", "preview");
 
 // ── Get installed Windows printers ────────────────────────────────────────────
 
