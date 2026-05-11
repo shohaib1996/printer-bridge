@@ -4,7 +4,7 @@
   "description": "Local Windows print bridge for Better Edibles PPS tablet printing",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && xcopy /E /I /Y src\\templates dist\\templates",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts"
   },

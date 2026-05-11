@@ -1,11 +1,13 @@
 {
   "port": 5050,
   "printers": {
-    "bagging_label": "YOUR_BAGGING_PRINTER_NAME",
-    "case_label": "YOUR_CASE_PRINTER_NAME"
+    "tray_label":    "Stage 2",
+    "bagging_label": "Stage 3",
+    "case_label":    "Stage 4"
   },
   "labelSizes": {
-    "bagging_label": { "width": "4in", "height": "2in" },
+    "tray_label":    { "width": "4in", "height": "6in" },
+    "bagging_label": { "width": "4in", "height": "6in" },
     "case_label":    { "width": "4in", "height": "6in" }
   }
 }
